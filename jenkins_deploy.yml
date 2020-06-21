@@ -1,0 +1,63 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: jenkins-k8s
+  labels: 
+    app: jenkins-k8s
+    purpose: Task3
+    status: Completed
+spec:
+  selector:
+    matchLabels:
+      app: jenkins-k8s
+      purpose: Task3
+      status: Completed
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: jenkins-k8s
+        purpose: Task3
+        status: Completed
+    spec:
+      containers:
+      - image: moizalimoomin/jenkins-k8s:v1
+        name: jenkins-k8s
+        ports:
+        - containerPort: 8080
+          name: jenkins-k8s
+        volumeMounts:
+        - name: jenkins-k8s-pv-claim
+          mountPath: /root/.jenkins/
+      volumes:
+      - name: jenkins-k8s-pv-claim
+        persistentVolumeClaim:
+          claimName: jenkins-k8s-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-k8s
+  labels:
+    app: jenkins-k8s
+spec:
+  ports:
+    - port: 8080
+      nodePort: 30000
+  selector:
+    app: jenkins-k8s
+  type: NodePort
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-k8s-pv-claim
+  labels:
+    app: jenkins-k8s
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi          

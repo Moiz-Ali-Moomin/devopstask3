@@ -1,0 +1,65 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: jswebsite
+  labels: 
+    app: jswebsite
+    purpose: Task3
+    status: Completed
+spec:
+  selector:
+    matchLabels:
+      app: jswebsite
+      purpose: Task3
+      status: Completed
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: jswebsite
+        purpose: Task3
+        status: Completed
+    spec:
+      containers:
+      - image: node
+        name: jswebsite
+        ports:
+        - containerPort: 9000
+          name: jswebsite
+        volumeMounts:
+        - name: jswebsite-persistent-storage
+          mountPath: /app
+      volumes:
+      - name: jswebsite-persistent-storage
+        persistentVolumeClaim:
+          claimName: jswebsite-pv-claim
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jswebsite-pv-claim
+  labels:
+    app: jswebsite
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi   
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jswebsite
+  labels:
+    app: jswebsite
+    env: production
+spec:
+  ports:
+    - port: 9000
+      nodePort: 30053
+  selector:
+    app: jswebsite
+  type: NodePort       
