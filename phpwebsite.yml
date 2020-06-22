@@ -34,7 +34,6 @@ spec:
       - name: phpwebsite-persistent-storage
         persistentVolumeClaim:
           claimName: phpwebsite-pv-claim
-
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

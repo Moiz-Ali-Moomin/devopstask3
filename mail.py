@@ -2,7 +2,7 @@ import smtplib
 
 TO = 'recipient@mailservice.com'
 SUBJECT = 'website down'
-TEXT = 'Your website is not working properly'
+TEXT = 'Your website is not working Properly'
 
 # Gmail Sign In
 gmail_sender = 'sender@gmail.com'

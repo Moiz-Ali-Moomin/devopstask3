@@ -16,3 +16,4 @@ spec:
     path: "/tmp/hostpath-provisioner/pvc-ef48571b-c7d6-49a6-8ab6-49911ab03483/workspace/job1"
   persistentVolumeReclaimPolicy: Recycle
   volumeMode: Filesystem
+  

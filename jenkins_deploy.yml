@@ -35,6 +35,7 @@ spec:
         persistentVolumeClaim:
           claimName: jenkins-k8s-pv-claim
 ---
+
 apiVersion: v1
 kind: Service
 metadata:

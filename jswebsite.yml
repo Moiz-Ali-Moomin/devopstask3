@@ -36,6 +36,7 @@ spec:
           claimName: jswebsite-pv-claim
 
 ---
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
